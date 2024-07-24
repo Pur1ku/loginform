@@ -1,7 +1,7 @@
-import ReportPDF from "../components/reportPDF";
+import React from 'react'
 
 export default function reportPDFpage() {
   return (
-    <div><ReportPDF/></div>
+    <div>reportPDFpage</div>
   )
 }

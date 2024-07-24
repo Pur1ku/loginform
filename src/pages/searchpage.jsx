@@ -1,7 +1,7 @@
-import Search from "../components/search";
+import React from 'react'
 
 export default function searchpage() {
   return (
-    <div><Search/></div>
+    <div>searchpage</div>
   )
 }
