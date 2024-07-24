@@ -1,10 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import loginpage from './pages/loginpage'
+import AuthContextProvider from "./contexts/AuthContext.jsx";
+import App from './App.jsx'
 import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
+  <AuthContextProvider>
   <React.StrictMode>
-    <loginpage />
-  </React.StrictMode>,
+    <App />
+  </React.StrictMode>
+</AuthContextProvider>
 )
