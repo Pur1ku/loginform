@@ -1,7 +1,7 @@
-import Insert from "../components/insert";
+import React from 'react'
 
 export default function insertpage() {
   return (
-    <div><Insert/></div>
+    <div>insertpage</div>
   )
 }
