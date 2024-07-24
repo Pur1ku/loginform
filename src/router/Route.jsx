@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { RouterProvider } from "react-router-dom";
 import Login from "../pages/loginpage";
 import Insert from "../pages/insertpage";
+import SignUp from "../pages/signuppage";
 import RedirectIfAuthenticated from "../features/auth/RedirectIfAuthenticated";
 
 const router = createBrowserRouter([
@@ -10,6 +11,14 @@ const router = createBrowserRouter([
         element: (
           <RedirectIfAuthenticated>
             <Login />
+          </RedirectIfAuthenticated>
+        ),
+      },
+      {
+        path: "/SignUp",
+        element: (
+          <RedirectIfAuthenticated>
+            <SignUp />
           </RedirectIfAuthenticated>
         ),
       },
