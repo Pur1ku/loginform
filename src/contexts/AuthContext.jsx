@@ -39,6 +39,32 @@ export default function AuthContextProvider({ children }) {
     setAuthUser(res.data.user);
   };
 
+  const Forgotpassword = async (ForgotpasswordInput) => {
+    const res = await axios.post("/auth/forgotpassword", ForgotpasswordInput);
+    console.log(res.data.accessToken);
+    addAccessToken(res.data.accessToken);
+    setAuthUser(res.data.user);
+  };
+
+  const resetpassword = async (token, ResetpasswordInput) => {
+    try {
+      const response = await axios.post(`/auth/reset-password/${token}`, ResetpasswordInput);
+  
+      // Assuming response.data contains the necessary data from the server
+      console.log(response.data.accessToken);
+      // Assuming addAccessToken and setAuthUser are functions defined elsewhere in your application
+      addAccessToken(response.data.accessToken);
+      setAuthUser(response.data.user);
+  
+      // Optionally, navigate to login or home page
+    } catch (error) {
+      console.error('Failed to reset password:', error);
+      // Handle error as needed
+    }
+  };
+  
+  
+
   const register = async (registerInputObj) => {
     const res = await axios.post("/auth/register", registerInputObj);
     addAccessToken(res.data.accessToken);
@@ -59,6 +85,8 @@ export default function AuthContextProvider({ children }) {
         logout,
         initialLoading,
         getUser,
+        Forgotpassword,
+        resetpassword,
       }}
     >
       {children}
