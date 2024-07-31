@@ -12,25 +12,10 @@ import { useEffect } from "react";
 export const AuthContext = createContext();
 
 export default function AuthContextProvider({ children }) {
-  const [initialLoading, setInitialLoading] = useState(true);
+
   const [authUser, setAuthUser] = useState(null);
 
-  const getUser = async () => {
-    const response = await axios.get("/auth/me");
-    if (!response.status === 200) {
-      throw new Error("Network response was not 200");
-    }
-    setAuthUser(response.data.user);
-  };
-
-  useEffect(() => {
-    if (getAccessToken()) {
-      getUser();
-      setInitialLoading(false);
-    } else {
-      setInitialLoading(false);
-    }
-  }, []);
+ 
 
   const login = async (credential) => {
     const res = await axios.post("/auth/login", credential);
@@ -62,13 +47,39 @@ export default function AuthContextProvider({ children }) {
       // Handle error as needed
     }
   };
+
+  const confirmEmail = async (token) => {
+    try {
+      const response = await axios.get(`/auth/confirm-email/${token}`);
+  
+      // Assuming response.data contains the necessary data from the server
+      console.log(response.data.accessToken);
+      // Assuming addAccessToken and setAuthUser are functions defined elsewhere in your application
+      addAccessToken(response.data.accessToken);
+      setAuthUser(response.data.user);
+  
+      // Optionally, navigate to login or home page
+    } catch (error) {
+      console.error('Failed to confirm email:', error);
+      // Handle error as needed
+    }
+  };
   
   
 
   const register = async (registerInputObj) => {
-    const res = await axios.post("/auth/register", registerInputObj);
-    addAccessToken(res.data.accessToken);
-    setAuthUser(res.data.user);
+    try {
+     
+      const res = await axios.post("/auth/register", registerInputObj);
+  
+      
+      addAccessToken(res.data.accessToken); // Add access token to state or storage
+      setAuthUser(res.data.user); // Set authenticated user data in state or storage
+    } catch (error) {
+      // Handle error if Axios request fails or server returns an error
+      console.error("Registration failed:", error);
+      // Optionally throw or handle the error further
+    }
   };
 
   const logout = () => {
@@ -83,10 +94,10 @@ export default function AuthContextProvider({ children }) {
         authUser,
         register,
         logout,
-        initialLoading,
-        getUser,
+      
         Forgotpassword,
         resetpassword,
+        confirmEmail
       }}
     >
       {children}

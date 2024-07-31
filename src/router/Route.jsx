@@ -5,6 +5,7 @@ import Insert from "../pages/insertpage";
 import SignUp from "../pages/signuppage";
 import Forgot from "../pages/forgotpasswordpage";
 import Resetpassword from "../pages/resetpasswordpage";
+import Confirmemailpage from "../pages/confirmemailpage";
 import RedirectIfAuthenticated from "../features/auth/RedirectIfAuthenticated";
 
 const router = createBrowserRouter([
@@ -17,11 +18,19 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/signUp",
+        path: "/confirm-email/:token",
         element: (
           <RedirectIfAuthenticated>
-            <SignUp />
+            <Confirmemailpage />
           </RedirectIfAuthenticated>
+        ),
+      },
+      {
+        path: "/signUp",
+        element: (
+        
+            <SignUp />
+     
         ),
       },
 
